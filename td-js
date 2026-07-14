@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Changeur de couleurs</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+    }
+
+    .container {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    #color-box {
+      width: 200px;
+      height: 200px;
+      background-color: lightblue;
+      margin: 20px auto;
+      border-radius: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    #color-code {
+      font-size: 18px;
+      margin: 10px 0;
+      color: #333;
+    }
+
+    #change-color-btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #change-color-btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Color Changer</h1>
+    <div id="color-box"></div>
+    <p id="color-code">Couleur actuelle : #ADD8E6</p>
+    <button id="change-color-btn">Change Color</button>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const colorBox = document.getElementById("color-box");
+      const changeColorBtn = document.getElementById("change-color-btn");
+      const colorCode = document.getElementById("color-code");
+
+      // Fonction pour générer une couleur hexadécimale aléatoire
+      function getRandomColor() {
+        const letters = "0123456789ABCDEF";
+        let color = "#";
+        for (let i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+
+      // Événement sur le bouton
+      changeColorBtn.addEventListener("click", () => {
+        const newColor = getRandomColor();
+        colorBox.style.backgroundColor = newColor;
+        colorCode.textContent = "Couleur actuelle : " + newColor;
+
+        // Copier automatiquement la couleur dans le presse-papier
+        navigator.clipboard.writeText(newColor).then(() => {
+          console.log("Couleur copiée : " + newColor);
+        }).catch(err => {
+          console.error("Erreur lors de la copie : ", err);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
