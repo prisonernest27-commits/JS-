@@ -1,0 +1,63 @@
+// Sélection des éléments
+const plusButtons = document.querySelectorAll(".plus-btn");
+const minusButtons = document.querySelectorAll(".minus-btn");
+const deleteButtons = document.querySelectorAll(".delete-btn");
+const heartButtons = document.querySelectorAll(".heart-btn");
+const totalPriceElement = document.querySelector("#total-price");
+
+// Fonction pour recalculer le total
+function updateTotal() {
+  let total = 0;
+  document.querySelectorAll(".item").forEach(item => {
+    const price = parseFloat(item.querySelector(".price").textContent);
+    const quantity = parseInt(item.querySelector(".quantity").textContent);
+    total += price * quantity;
+  });
+  totalPriceElement.textContent = total.toFixed(2) + " Fcfa";
+}
+
+// Gestion des boutons +
+plusButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    const quantityElement = btn.parentElement.querySelector(".quantity");
+    quantityElement.textContent = parseInt(quantityElement.textContent) + 1;
+    updateTotal();
+  });
+});
+
+// Gestion des boutons -
+minusButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    const quantityElement = btn.parentElement.querySelector(".quantity");
+    let current = parseInt(quantityElement.textContent);
+    if (current > 1) {
+      quantityElement.textContent = current - 1;
+      updateTotal();
+    }
+  });
+});
+
+// Suppression d’un article
+deleteButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    btn.closest(".item").remove();
+    updateTotal();
+  });
+});
+
+// Bouton cœur (like)
+heartButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    btn.classList.toggle("liked"); // ajoute/enlève la classe "liked"
+  });
+});
+
+// Initialisation du total
+updateTotal();
+.heart-btn {
+  color: grey;
+  cursor: pointer;
+}
+.heart-btn.liked {
+  color: red;
+}
