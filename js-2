@@ -1,0 +1,74 @@
+// String Manipulation Functions
+
+function reverseString(str) {
+  return str.split('').reverse().join('');
+}
+
+function countCharacters(str) {
+  return str.length;
+}
+
+function capitalizeWords(sentence) {
+  return sentence
+    .split(' ')
+    .map(word => {
+      if (!word) return word;
+      return word[0].toUpperCase() + word.slice(1).toLowerCase();
+    })
+    .join(' ');
+}
+
+// Array Functions
+
+function findMax(arr) {
+  if (!Array.isArray(arr) || arr.length === 0) return undefined;
+  return Math.max(...arr);
+}
+
+function findMin(arr) {
+  if (!Array.isArray(arr) || arr.length === 0) return undefined;
+  return Math.min(...arr);
+}
+
+function sumArray(arr) {
+  return arr.reduce((total, value) => total + value, 0);
+}
+
+function filterArray(arr, predicate) {
+  return arr.filter(predicate);
+}
+
+// Mathematical Functions
+
+function factorial(n) {
+  if (typeof n !== 'number' || n < 0 || !Number.isInteger(n)) {
+    return undefined;
+  }
+  let result = 1;
+  for (let i = 2; i <= n; i++) {
+    result *= i;
+  }
+  return result;
+}
+
+function isPrime(n) {
+  if (typeof n !== 'number' || n <= 1 || !Number.isInteger(n)) return false;
+  if (n <= 3) return true;
+  if (n % 2 === 0 || n % 3 === 0) return false;
+  for (let i = 5; i * i <= n; i += 6) {
+    if (n % i === 0 || n % (i + 2) === 0) return false;
+  }
+  return true;
+}
+
+function fibonacciTerms(count) {
+  if (typeof count !== 'number' || count <= 0 || !Number.isInteger(count)) return [];
+  const sequence = [0];
+  if (count === 1) return sequence;
+  sequence.push(1);
+  while (sequence.length < count) {
+    const len = sequence.length;
+    sequence.push(sequence[len - 1] + sequence[len - 2]);
+  }
+  return sequence;
+}
